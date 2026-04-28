@@ -4,4 +4,4 @@ To run the server, run this in your terminal:
 
 `source venv/bin/activate`
 
-`python3 app.py"`
+`python3 app.py`

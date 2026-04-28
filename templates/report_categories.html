@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Category Report | Sims 4 Skin Pack Catalog{% endblock %}
+{% block content %}
+<section class="panel section">
+    <p class="muted">Report 2</p>
+    <h1>Category Distribution Report</h1>
+    <p>Counts how many skin packs belong to each category and visualizes the totals as bars.</p>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Style</th>
+                    <th>Total Packs</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        <td>{{ row.category_name }}</td>
+                        <td>{{ row.mood_style }}</td>
+                        <td>{{ row.total_packs }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="report-bars">
+        {% for row in rows %}
+            <div class="bar-row">
+                <span>{{ row.category_name }} ({{ row.total_packs }})</span>
+                <div class="bar" style="width: {{ 20 + (row.total_packs * 18) }}%;"></div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

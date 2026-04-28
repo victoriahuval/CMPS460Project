@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Creators | Sims 4 Skin Pack Catalog{% endblock %}
+{% block content %}
+<section class="panel section">
+    <div class="split">
+        <div>
+            <p class="muted">Connects to the creators table</p>
+            <h1>Manage Creators</h1>
+            <div class="table-wrap" style="margin-top: 1rem;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Platform</th>
+                            <th>Country</th>
+                            <th>Skin Packs</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for creator in creators %}
+                            <tr>
+                                <td>{{ creator.creator_name }}</td>
+                                <td>{{ creator.platform_name }}</td>
+                                <td>{{ creator.country_name }}</td>
+                                <td>{{ creator.pack_count }}</td>
+                                <td>
+                                    <form class="inline" method="post" action="{{ url_for('delete_creator', creator_id=creator.creator_id) }}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                        <button class="button ghost" type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Add Creator</h3>
+            <form method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <div style="margin-bottom: 0.8rem;">
+                    <label for="creator_name">Creator Name</label>
+                    <input id="creator_name" name="creator_name" required>
+                </div>
+                <div style="margin-bottom: 0.8rem;">
+                    <label for="platform_name">Platform</label>
+                    <input id="platform_name" name="platform_name" placeholder="Patreon, Tumblr, CurseForge" required>
+                </div>
+                <div style="margin-bottom: 0.8rem;">
+                    <label for="country_name">Country</label>
+                    <input id="country_name" name="country_name" required>
+                </div>
+                <button class="button" type="submit">Add Creator</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

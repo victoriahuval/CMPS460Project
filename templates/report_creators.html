@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Creator Report | Sims 4 Skin Pack Catalog{% endblock %}
+{% block content %}
+<section class="panel section">
+    <p class="muted">Report 1</p>
+    <h1>Creator Productivity Report</h1>
+    <p>Shows how many skin packs each creator has uploaded and the average listed price.</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Creator</th>
+                    <th>Platform</th>
+                    <th>Total Packs</th>
+                    <th>Average Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        <td>{{ row.creator_name }}</td>
+                        <td>{{ row.platform_name }}</td>
+                        <td>{{ row.total_packs }}</td>
+                        <td>${{ "%.2f"|format(row.average_price or 0) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

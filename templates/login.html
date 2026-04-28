@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Login | Sims 4 Skin Pack Catalog{% endblock %}
+{% block content %}
+<section class="panel section" style="max-width: 540px; margin: 0 auto;">
+    <p class="muted">Admin access</p>
+    <h1>Login to manage the database</h1>
+    <p>Use the seeded demo account the first time you run the app: <strong>admin</strong> / <strong>admin123</strong>.</p>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div style="margin-bottom: 1rem;">
+            <label for="username">Username</label>
+            <input id="username" name="username" required>
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" required>
+        </div>
+        <button class="button" type="submit">Login</button>
+    </form>
+</section>
+{% endblock %}

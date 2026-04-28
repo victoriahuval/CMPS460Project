@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Downloads Report | Sims 4 Skin Pack Catalog{% endblock %}
+{% block content %}
+<section class="panel section">
+    <p class="muted">Report 3</p>
+    <h1>Most Downloaded Skin Packs</h1>
+    <p>Ranks packs by their summed monthly download counts.</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pack</th>
+                    <th>Creator</th>
+                    <th>Total Downloads</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        <td>{{ row.pack_name }}</td>
+                        <td>{{ row.creator_name }}</td>
+                        <td>{{ row.total_downloads }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

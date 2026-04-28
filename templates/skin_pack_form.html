@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}{% if pack %}Edit{% else %}Add{% endif %} Skin Pack{% endblock %}
+{% block content %}
+<section class="panel section">
+    <p class="muted">Admin form</p>
+    <h1>{% if pack %}Update{% else %}Add{% endif %} a Skin Pack</h1>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div class="form-grid">
+            <div>
+                <label for="pack_name">Pack Name</label>
+                <input id="pack_name" name="pack_name" required value="{{ pack.pack_name if pack else '' }}">
+            </div>
+            <div>
+                <label for="creator_id">Creator</label>
+                <select id="creator_id" name="creator_id" required>
+                    {% for creator in creators %}
+                        <option value="{{ creator.creator_id }}" {% if pack and pack.creator_id == creator.creator_id %}selected{% endif %}>
+                            {{ creator.creator_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="category_id">Category</label>
+                <select id="category_id" name="category_id" required>
+                    {% for category in categories %}
+                        <option value="{{ category.category_id }}" {% if pack and pack.category_id == category.category_id %}selected{% endif %}>
+                            {{ category.category_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="compatibility_id">Game Patch</label>
+                <select id="compatibility_id" name="compatibility_id" required>
+                    {% for version in compatibility_versions %}
+                        <option value="{{ version.compatibility_id }}" {% if pack and pack.compatibility_id == version.compatibility_id %}selected{% endif %}>
+                            {{ version.version_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="price">Price</label>
+                <input id="price" name="price" type="number" min="0" step="0.01" required value="{{ pack.price if pack else '0.00' }}">
+            </div>
+            <div>
+                <label for="release_date">Release Date</label>
+                <input id="release_date" name="release_date" type="date" required value="{{ pack.release_date if pack else '' }}">
+            </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required>{{ pack.description if pack else '' }}</textarea>
+        </div>
+
+        <div style="margin-top: 1rem;">
+            <label>Tags</label>
+            <div class="checkbox-group">
+                {% for tag in tags %}
+                    <label class="checkbox-item">
+                        <input
+                            type="checkbox"
+                            name="tag_ids"
+                            value="{{ tag.tag_id }}"
+                            {% if tag.tag_id in selected_tags %}checked{% endif %}
+                        >
+                        <span>{{ tag.tag_name }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+            <label class="checkbox-item" style="max-width: 240px;">
+                <input type="checkbox" name="is_default" {% if pack and pack.is_default %}checked{% endif %}>
+                <span>Default replacement</span>
+            </label>
+        </div>
+
+        <div class="actions">
+            <button class="button" type="submit">{% if pack %}Save Changes{% else %}Create Pack{% endif %}</button>
+            <a class="button ghost" href="{{ url_for('skin_packs') }}">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

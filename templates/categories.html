@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Categories | Sims 4 Skin Pack Catalog{% endblock %}
+{% block content %}
+<section class="panel section">
+    <div class="split">
+        <div>
+            <p class="muted">Connects to the categories table</p>
+            <h1>Manage Categories</h1>
+            <div class="table-wrap" style="margin-top: 1rem;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Style</th>
+                            <th>Skin Packs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.category_name }}</td>
+                                <td>{{ category.mood_style }}</td>
+                                <td>{{ category.pack_count }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Add Category</h3>
+            <form method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <div style="margin-bottom: 0.8rem;">
+                    <label for="category_name">Category Name</label>
+                    <input id="category_name" name="category_name" required>
+                </div>
+                <div style="margin-bottom: 0.8rem;">
+                    <label for="mood_style">Mood or Style</label>
+                    <input id="mood_style" name="mood_style" required>
+                </div>
+                <button class="button" type="submit">Add Category</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

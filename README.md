@@ -5,3 +5,5 @@ To run the server, run this in your terminal:
 `source venv/bin/activate`
 
 `python3 app.py`
+
+the server URL is `http://127.0.0.1:5000/`
